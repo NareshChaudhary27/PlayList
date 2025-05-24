@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../middleware/authMiddleware');
 
 const {
     addGame,
@@ -10,16 +11,16 @@ const {
 } = require('../controllers/gameController');
 
 // Add a new game
-router.post('/', addGame);
+router.post('/', authMiddleware, addGame);
 
 // Get all games
-router.get('/', getGame);
+router.get('/', authMiddleware, getGame);
 
 // Update game status
-router.put('/:id', updateGame);
+router.put('/:id', authMiddleware, updateGame);
 
 // Delete a game
-router.delete('/:id', deleteGame);
+router.delete('/:id', authMiddleware, deleteGame);
 
 // Search for a game by title
 router.get('/search', searchGame);
